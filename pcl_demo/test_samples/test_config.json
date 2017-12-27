@@ -1,0 +1,49 @@
+{
+	"input":{
+		"description":"type can be panasonic|pcd...", 
+		"type":"panasonic",
+		"file":"../test_samples/test_box_up.raw"
+	},
+
+	"proc":[	
+		{
+			"type": "denoise",
+			"neighbour": 150, //30 par default
+			"std_err": 0.1 //1.0
+		},
+		
+
+
+		{
+			"type": "linear-filter",
+			"field-name":"z",
+			"min": 0,
+			"max": 0.8 //0.8 //si 0.5 on peut avoir le surface-haut de box
+		},
+
+		// {
+		// 	"type":"ransac",
+		// 	"max-plane": 5,
+		// 	"iteration": 10,
+		// 	"probability": 0.8,
+		// 	"threshold": 0.02
+		// },
+
+		{
+
+			"type":"region-growth",
+			"norm-neighbour":400,
+			"min-points":50,
+			"neighbour":50,
+			"theta-threshold": 4.0, //4.0
+			"curvature-threshold": 0.8 //1.0
+		
+		}
+
+		
+	],
+
+	"output":{
+		"file":"display"
+	}
+}

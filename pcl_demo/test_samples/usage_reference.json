@@ -1,0 +1,77 @@
+{
+	"input":{
+		"description":"type can be panasonic|pcd...", 
+
+		"type":"panasonic",
+		"file":"../test_samples/test_box_up.raw"
+	},
+
+	"input":{
+		"description":"type can be panasonic|pcd...", 
+
+		"type":"pcd",
+		"file":"../test_samples/table_scene_lms400.pcd"
+	},
+
+	"proc":[
+		{
+			"type": "linear-filter",
+			"field-name":"z",
+			"min": 0,
+			"max": 0.5
+		},
+		{
+			"type": "downsample",
+			"size": 0.01
+		},
+		{
+			"type": "denoise",
+			"neighbour": 30,
+			"std_err": 1.0 
+		},
+		{
+			"type":"project",
+			"a":0,
+			"b":0,
+			"c":1.0,
+			"w":-1.0
+		},
+		{
+			"type":"ransac",
+			"max-plane": 5,
+			"iteration": 10,
+			"probability": 0.8,
+			"threshold": 0.02
+		},
+		{
+			"type":"euclidien",
+			"points":100,
+			"distance":0.05
+		},
+		{
+			"type":"region-growth",
+			"norm-neighbour":50,
+			"min-points":50,
+			"neighbour":50,
+			"theta-threshold": 4.0,
+			"curvature-threshold": 1.0
+		},
+		{
+			"type":"mincut",
+			"x":0,
+			"y":0,
+			"z":0.4,
+			"neighbour":15,
+			"radius":0.5,
+			"sigma":0.4,
+			"weight":0.5
+		}
+	],
+
+	"output":{
+		"description":"type can be simple|extracted-planes|segmentations..,\n File can be display or real file",
+
+		"type":"simple",
+		"file":"display"
+	}
+}

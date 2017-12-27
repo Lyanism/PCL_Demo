@@ -1,0 +1,5 @@
+/home/lyan/Documents/project/from_gerrit/pcl_demo/build/CMakeFiles/pcl_utils_ts.dir
+/home/lyan/Documents/project/from_gerrit/pcl_demo/build/CMakeFiles/edit_cache.dir
+/home/lyan/Documents/project/from_gerrit/pcl_demo/build/CMakeFiles/pcl_demo.dir
+/home/lyan/Documents/project/from_gerrit/pcl_demo/build/CMakeFiles/pcl_test.dir
+/home/lyan/Documents/project/from_gerrit/pcl_demo/build/CMakeFiles/rebuild_cache.dir
