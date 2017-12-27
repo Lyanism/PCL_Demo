@@ -5,7 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/pcl_utils_ts.dir/src/pcl_utils_viewer.cpp.o"
   "CMakeFiles/pcl_utils_ts.dir/src/pcl_utils_segment.cpp.o"
   "libpcl_utils_ts.pdb"
-  "libpcl_utils_ts.so"
+  "libpcl_utils_ts.dylib"
 )
 
 # Per-language clean rules from dependency scanning.
