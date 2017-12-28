@@ -2,36 +2,23 @@
 	"input":{
 		"description":"type can be panasonic|pcd...", 
 		"type":"panasonic",
-		"file":"../test_samples/test_box_up.raw"
+		"file":"../test_samples/2769529_VDQIB_point_after.raw"
 	},
 
 	"proc":[	
-		{
-			"type": "denoise",
-			"neighbour": 150, 
-			"std_err": 0.1 
-		},
-		
+		   {
+		   	"type": "denoise",
+		   	"neighbour": 150, 
+		   	"std_err": 0.1 
+		   },
+			
+		 {
+		 	"type": "downsample",
+		 	"size": 0.01
+		 }
 
-
-		{
-			"type": "linear-filter",
-			"field-name":"z",
-			"min": 0,
-			"max": 0.8 
-		},
 
 		
-		{
-
-			"type":"region-growth",
-			"norm-neighbour":400,
-			"min-points":50,
-			"neighbour":50,
-			"theta-threshold": 4.0, 
-			"curvature-threshold": 0.8 
-		
-		}
 
 		
 	],

@@ -1,9 +1,8 @@
 {
 	"input":{
 		"description":"type can be panasonic|pcd...", 
-
 		"type":"pcd",
-		"file":"../test_samples/table_scene_lms400.pcd"
+		"file":"../test_samples/table_scene_mug_stereo_textured.pcd"
 	},
 
 	"proc":[],

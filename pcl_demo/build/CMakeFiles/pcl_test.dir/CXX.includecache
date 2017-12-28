@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/lyan/Documents/GitHub/PCL_Demo/pcl_demo/src/pcl_test.cpp
+/Users/lyan/Documents/project/pcl_demo/src/pcl_test.cpp
 pcl/point_cloud.h
 -
 pcl/octree/octree_pointcloud_changedetector.h

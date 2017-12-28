@@ -29,6 +29,8 @@ pcl/filters/voxel_grid.h
 -
 pcl/filters/statistical_outlier_removal.h
 -
+pcl/filters/radius_outlier_removal.h
+-
 pcl/filters/project_inliers.h
 -
 pcl/ModelCoefficients.h
@@ -81,9 +83,13 @@ pcl/filters/project_inliers.h
 -
 pcl/filters/extract_indices.h
 -
+pcl/filters/conditional_removal.h
+-
 pcl/ModelCoefficients.h
 -
 pcl/features/normal_3d.h
+-
+pcl/features/normal_3d_omp.h
 -
 pcl/kdtree/kdtree.h
 -
@@ -98,6 +104,10 @@ pcl/segmentation/extract_clusters.h
 pcl/segmentation/region_growing.h
 -
 pcl/segmentation/min_cut_segmentation.h
+-
+pcl/features/don.h
+-
+time.h
 -
 
 ../inc/pcl_utils_ts.h
@@ -126,9 +136,9 @@ pcl/point_types.h
 pcl/visualization/pcl_visualizer.h
 -
 
-/Users/lyan/Documents/GitHub/PCL_Demo/pcl_demo/src/pcl_demo.cpp
+/Users/lyan/Documents/project/pcl_demo/src/pcl_demo.cpp
 pcl_utils_ts.h
-/Users/lyan/Documents/GitHub/PCL_Demo/pcl_demo/src/pcl_utils_ts.h
+/Users/lyan/Documents/project/pcl_demo/src/pcl_utils_ts.h
 pcl/point_cloud.h
 -
 pcl/io/pcd_io.h
@@ -142,6 +152,8 @@ boost/thread/thread.hpp
 boost/property_tree/ptree.hpp
 -
 boost/property_tree/json_parser.hpp
+-
+time.h
 -
 
 /usr/local/Cellar/vtk/8.0.1_1/include/vtk-8.0/vtkABI.h
@@ -33740,6 +33752,12 @@ pcl/pcl_macros.h
 boost/current_function.hpp
 -
 
+/usr/local/include/pcl-1.8/pcl/features/don.h
+pcl/features/feature.h
+-
+pcl/features/impl/don.hpp
+-
+
 /usr/local/include/pcl-1.8/pcl/features/feature.h
 boost/function.hpp
 -
@@ -33752,6 +33770,10 @@ pcl/search/search.h
 pcl/features/impl/feature.hpp
 -
 
+/usr/local/include/pcl-1.8/pcl/features/impl/don.hpp
+pcl/features/don.h
+-
+
 /usr/local/include/pcl-1.8/pcl/features/impl/feature.hpp
 pcl/search/pcl_search.h
 -
@@ -33760,12 +33782,22 @@ pcl/search/pcl_search.h
 pcl/features/normal_3d.h
 -
 
+/usr/local/include/pcl-1.8/pcl/features/impl/normal_3d_omp.hpp
+pcl/features/normal_3d_omp.h
+-
+
 /usr/local/include/pcl-1.8/pcl/features/normal_3d.h
 pcl/features/feature.h
 -
 pcl/common/centroid.h
 -
 pcl/features/impl/normal_3d.hpp
+-
+
+/usr/local/include/pcl-1.8/pcl/features/normal_3d_omp.h
+pcl/features/normal_3d.h
+-
+pcl/features/impl/normal_3d_omp.hpp
 -
 
 /usr/local/include/pcl-1.8/pcl/filters/boost.h
@@ -33790,6 +33822,14 @@ boost/bind.hpp
 boost/function.hpp
 -
 boost/optional.hpp
+-
+
+/usr/local/include/pcl-1.8/pcl/filters/conditional_removal.h
+pcl/common/eigen.h
+-
+pcl/filters/filter.h
+-
+pcl/filters/impl/conditional_removal.hpp
 -
 
 /usr/local/include/pcl-1.8/pcl/filters/extract_indices.h
@@ -33820,6 +33860,14 @@ pcl/filters/filter.h
 pcl/filters/impl/filter_indices.hpp
 -
 
+/usr/local/include/pcl-1.8/pcl/filters/impl/conditional_removal.hpp
+pcl/common/io.h
+-
+pcl/common/copy_point.h
+-
+pcl/filters/conditional_removal.h
+-
+
 /usr/local/include/pcl-1.8/pcl/filters/impl/extract_indices.hpp
 pcl/filters/extract_indices.h
 -
@@ -33846,6 +33894,12 @@ pcl/common/io.h
 
 /usr/local/include/pcl-1.8/pcl/filters/impl/project_inliers.hpp
 pcl/filters/project_inliers.h
+-
+
+/usr/local/include/pcl-1.8/pcl/filters/impl/radius_outlier_removal.hpp
+pcl/filters/radius_outlier_removal.h
+-
+pcl/common/io.h
 -
 
 /usr/local/include/pcl-1.8/pcl/filters/impl/statistical_outlier_removal.hpp
@@ -33906,6 +33960,14 @@ pcl/sample_consensus/sac_model_plane.h
 pcl/sample_consensus/sac_model_sphere.h
 -
 pcl/filters/impl/project_inliers.hpp
+-
+
+/usr/local/include/pcl-1.8/pcl/filters/radius_outlier_removal.h
+pcl/filters/filter_indices.h
+-
+pcl/search/pcl_search.h
+-
+pcl/filters/impl/radius_outlier_removal.hpp
 -
 
 /usr/local/include/pcl-1.8/pcl/filters/statistical_outlier_removal.h

@@ -37,6 +37,11 @@
 			"w":-1.0
 		},
 		{
+			"type":"radius",
+			"radius":0.8,
+			"minNeighbours":2
+		},
+		{
 			"type":"ransac",
 			"max-plane": 5,
 			"iteration": 10,
@@ -66,6 +71,16 @@
 			"sigma":0.4,
 			"weight":0.5
 		}
+		// {
+		// 	"type":"difference-of-normals",
+		// 	"scale1":100,
+		// 	"scale2":200,
+		// 	"threshold":0.02
+		// } 
+		
+		//never use this method cuz its running speed;
+
+		
 	],
 
 	"output":{

@@ -2,6 +2,7 @@
 
 
 using namespace std;
+using namespace pcl;
 
 
 
@@ -68,6 +69,44 @@ vector<pcl::PointCloud<pcl::PointXYZ>::Ptr>& applySegment(pcl::PointCloud<pcl::P
 
 		  seg.extract (cluster_indices);
 	}
+
+	else if(difference_of_normals == type){
+		pcl::NormalEstimation<PointXYZ, PointNormal> ne;
+		  ne.setInputCloud (cloud);
+  		  ne.setSearchMethod (tree);
+          cout << "?????" << endl;
+		  ne.setViewPoint (std::numeric_limits<float>::max (), std::numeric_limits<float>::max (), std::numeric_limits<float>::max ());
+		  
+		  cout << "Calculating normals for scale1..." << param.difference.scale1 << endl;
+		  pcl::PointCloud<PointNormal>::Ptr normals_small_scale (new pcl::PointCloud<PointNormal>);
+		  cout << "HERE" << endl;
+		  ne.setRadiusSearch (param.difference.scale1);
+		  cout << "HERE" << endl;
+  		  ne.compute (*normals_small_scale);
+		  cout << "Calculating normals for scale2..." << param.difference.scale2 << endl;	
+		  pcl::PointCloud<PointNormal>::Ptr normals_large_scale (new pcl::PointCloud<PointNormal>);
+		  ne.setRadiusSearch (param.difference.scale2);
+  		  ne.compute (*normals_large_scale);
+		  
+		  PointCloud<PointNormal>::Ptr doncloud (new pcl::PointCloud<PointNormal>);
+          copyPointCloud<PointXYZ, PointNormal>(*cloud, *doncloud);
+		  pcl::DifferenceOfNormalsEstimation<PointXYZ, PointNormal, PointNormal> don;
+          don.setInputCloud (cloud);
+  		  don.setNormalScaleLarge (normals_large_scale);
+  		  don.setNormalScaleSmall (normals_small_scale);
+		  don.computeFeature (*doncloud);
+		  
+		pcl::ConditionOr<PointNormal>::Ptr range_cond (new pcl::ConditionOr<PointNormal> ());
+		  range_cond->addComparison (pcl::FieldComparison<PointNormal>::ConstPtr (new pcl::FieldComparison<PointNormal> ("curvature", pcl::ComparisonOps::GT, param.difference.threshold)));
+
+		pcl::ConditionalRemoval<PointNormal> condrem (false);
+		  condrem.setCondition(range_cond);
+  		  condrem.setInputCloud (doncloud);
+
+  		pcl::PointCloud<PointNormal>::Ptr doncloud_filtered (new pcl::PointCloud<PointNormal>);
+		  doncloud = doncloud_filtered;
+		std::cout << "Filtered Pointcloud: " << doncloud->points.size () << " data points." << std::endl;
+	}	  
 
 
 	for (std::vector<pcl::PointIndices>::const_iterator it = cluster_indices.begin (); it != cluster_indices.end (); ++it)

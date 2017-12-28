@@ -17,6 +17,7 @@
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
+#include <time.h>
 
 using namespace std;
 using namespace boost::property_tree;
@@ -141,6 +142,19 @@ processConfiguration (string& file_path) {
 			applyFilter(cloudMono, filter_params);
 			vis_type = mono;
 		}
+		else if(0 ==v.second.get<string>("type").compare("radius")){
+			filter_proc_t item;
+			vector<filter_proc_t> filter_params;
+
+			item.type = radius_filter;
+			item.param.radius_filter.radius = v.second.get<float>("radius");
+			item.param.radius_filter.minNeighbours = v.second.get<float>("minNeighbours");
+
+			filter_params.push_back(item);
+
+			applyFilter(cloudMono, filter_params);
+			vis_type = mono;
+		}
 		else if (0 == v.second.get<string>("type").compare("ransac")){
 			ransac_param_t param;
 			param.max_plane = v.second.get<int>("max-plane");
@@ -200,6 +214,19 @@ processConfiguration (string& file_path) {
 			combinePointClouds(seperated_clouds, cloudRGB);
 			vis_type = color;
 		}
+		else if (0 == v.second.get<string>("type").compare("difference-of-normals")){
+			segment_param_t param;
+
+			param.difference.scale1 = v.second.get<float>("scale1");
+			param.difference.scale2 = v.second.get<float>("scale2");
+			param.difference.threshold = v.second.get<float>("threshold");
+
+			seperated_clouds = applySegment(cloudMono, difference_of_normals, param);
+			cloudRGB->clear();
+			combinePointClouds(seperated_clouds, cloudRGB);
+			vis_type = color;
+		}
+		
     }
 
     /*Display*/
@@ -257,10 +284,17 @@ int main (int argc, char** argv)
 	int index = -1;
 
 	/*Use config file*/
+	clock_t start,finish;
+	double totaltime;
+	start = clock();
 	if ((index=pcl::console::find_argument (argc, argv, "-cfg")) > 0){
 		string file_path(argv[index+1]);
 		processConfiguration(file_path);
+		finish = clock();
+		totaltime = (double)(finish-start)/CLOCKS_PER_SEC;
+		cout<< "\ntime delay : " << totaltime <<endl;
 	}
+
 	else {
 		cout<<"Only support cfg file now..."<<endl;
 	}

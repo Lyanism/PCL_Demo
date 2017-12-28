@@ -82,5 +82,17 @@ void applyFilter(pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud, std::vector<filter_
 			  proj.filter (*cloud_filtered);
 			  cloud_filtered.swap(cloud);
 		}
+		else if(radius_filter == current_type)
+		{
+			pcl::RadiusOutlierRemoval<pcl::PointXYZ> outrem;
+			outrem.setInputCloud(cloud);
+
+			radius_param_t param = current_param.radius_filter;
+    		outrem.setRadiusSearch(param.radius);
+    		outrem.setMinNeighborsInRadius (param.minNeighbours);
+    		// apply filter
+    		outrem.filter (*cloud_filtered);
+			cloud_filtered.swap(cloud);
+		}
 	}
 }
