@@ -108,7 +108,7 @@ processConfiguration (string& file_path) {
     		pcl::io::loadPCDFile<pcl::PointXYZRGB> (pt.get<string>("input.file"), *cloudRGB);
     		vis_type = color;
     }
-    else {
+    else {	
     		cout<<"Unsupported input type: "<<pt.get<string>("input.type")<<endl;
     		cout<<"We only support panasonic|pcd for the moment"<<endl;
     }
