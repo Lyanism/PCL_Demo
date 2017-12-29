@@ -1,0 +1,49 @@
+{
+	"input":{
+		"description":"type can be panasonic|pcd...", 
+		"type":"panasonic",
+		"file":"../test_samples/2769529_VDQIB_point_after.raw"
+	},
+
+	"proc":[	
+		    {
+		    	"type": "denoise",
+		    	"neighbour": 150, //30 par default
+		    	"std_err": 0.1 //1.0
+		    },
+			
+		   {
+		   	"type": "downsample",
+		   	"size": 0.01
+		   },
+
+
+		//  {
+		// 	"type":"radius",
+		// 	"radius":0.8,
+		// 	"minNeighbours":2
+		// },
+
+		//  {
+		//  	"type":"ransac",
+		//  	"max-plane": 5,
+		//  	"iteration": 10,
+		//  	"probability": 0.8,
+		//  	"threshold": 0.02
+		//  },
+
+		// 
+		
+		  {
+		  	"type":"euclidien",
+		  	"points":200,
+		  	"distance":0.05
+		  }
+
+		
+	],
+
+	"output":{
+		"file":"display"
+	}
+}
