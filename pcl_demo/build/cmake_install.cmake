@@ -1,4 +1,4 @@
-# Install script for directory: /Users/lyan/Documents/project/pcl_demo
+# Install script for directory: /Users/lyan/Documents/GitHub/PCL_Demo/pcl_demo
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/lyan/Documents/project/pcl_demo/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/lyan/Documents/GitHub/PCL_Demo/pcl_demo/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

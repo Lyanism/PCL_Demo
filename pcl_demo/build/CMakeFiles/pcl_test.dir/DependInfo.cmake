@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/lyan/Documents/project/pcl_demo/src/pcl_test.cpp" "/Users/lyan/Documents/project/pcl_demo/build/CMakeFiles/pcl_test.dir/src/pcl_test.cpp.o"
+  "/Users/lyan/Documents/GitHub/PCL_Demo/pcl_demo/src/pcl_test.cpp" "/Users/lyan/Documents/GitHub/PCL_Demo/pcl_demo/build/CMakeFiles/pcl_test.dir/src/pcl_test.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "Clang")
 

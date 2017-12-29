@@ -6,19 +6,23 @@
 	},
 
 	"proc":[	
-		   {
-		   	"type": "denoise",
-		   	"neighbour": 150, 
-		   	"std_err": 0.1 
-		   },
+		    {
+		    	"type": "denoise",
+		    	"neighbour": 150, 
+		    	"std_err": 0.1 
+		    },
 			
-		 {
-		 	"type": "downsample",
-		 	"size": 0.01
-		 }
-
+		   {
+		   	"type": "downsample",
+		   	"size": 0.01
+		   },
 
 		
+		  {
+		  	"type":"euclidien",
+		  	"points":200,
+		  	"distance":0.05
+		  }
 
 		
 	],

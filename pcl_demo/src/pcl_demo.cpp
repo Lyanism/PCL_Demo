@@ -18,6 +18,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <time.h>
+#include <string>
 
 using namespace std;
 using namespace boost::property_tree;
@@ -39,6 +40,32 @@ typedef enum {
 	color
 }visual_type_t;
 
+class DelayTime{
+	public:
+		clock_t start,finish;
+		double totaltime;
+		string methodName;
+
+		void countingBegin()
+		{	
+			cout<<"counting begin"<<endl;
+			start = clock();
+		}
+
+		string getMethodName(string methodName)
+		{	
+			cout<<"the method name is :"<< methodName << endl;
+			return methodName;
+		}
+
+		void printout()
+		{	
+			finish = clock();
+			totaltime = double(finish-start)/CLOCKS_PER_SEC;
+			cout<< "time of delay is : " << totaltime << endl;
+		}
+
+};
 
 void
 processConfiguration (string& file_path) {
@@ -46,6 +73,9 @@ processConfiguration (string& file_path) {
   	pcl::visualization::PCLVisualizer::Ptr  viewer;
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloudMono (new pcl::PointCloud<pcl::PointXYZ>);
 	pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloudRGB(new pcl::PointCloud<pcl::PointXYZRGB>);
+
+	// clock_t start,finish;
+	// double totaltime;
 
 	visual_type_t vis_type = mono;
 	vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> seperated_clouds;
@@ -86,6 +116,15 @@ processConfiguration (string& file_path) {
 	/*Process with pipeline*/
 
     BOOST_FOREACH(boost::property_tree::ptree::value_type &v, pt.get_child("proc")){
+
+
+		DelayTime delay;
+		delay.countingBegin();
+		
+		
+		// cout<<"start counting"<<endl;
+		// start = clock();
+
 		if(0 == v.second.get<string>("type").compare("linear-filter")){
 			filter_proc_t item;
 			vector<filter_proc_t> filter_params;
@@ -104,19 +143,22 @@ processConfiguration (string& file_path) {
 		else if (0 == v.second.get<string>("type").compare("downsample")){
 			filter_proc_t item;
 			vector<filter_proc_t> filter_params;
-
+			delay.getMethodName(v.second.get<string>("type"));
 			item.type = down_sample;
+
 
 			item.param.down_sample.voxel_size = v.second.get<float>("size");
 			filter_params.push_back(item);
 
 			applyFilter(cloudMono, filter_params);
 			vis_type = mono;
+			delay.printout();
+			
 		}
 		else if (0 == v.second.get<string>("type").compare("denoise")){
 			filter_proc_t item;
 			vector<filter_proc_t> filter_params;
-
+			delay.getMethodName(v.second.get<string>("type"));
 			item.type = stats_denoise;
 
 			item.param.denoise.neighbours = v.second.get<int>("neighbour");
@@ -125,6 +167,9 @@ processConfiguration (string& file_path) {
 
 			applyFilter(cloudMono, filter_params);
 			vis_type = mono;
+			delay.printout();
+			
+			
 		}
 		else if (0 == v.second.get<string>("type").compare("project")){
 			filter_proc_t item;
@@ -170,6 +215,7 @@ processConfiguration (string& file_path) {
 		}
 		else if (0 == v.second.get<string>("type").compare("euclidien")){
 			segment_param_t param;
+			delay.getMethodName(v.second.get<string>("type"));
 
 			param.euclidien.distance = v.second.get<float>("distance");
 			param.euclidien.min_points = v.second.get<int>("points");
@@ -179,6 +225,8 @@ processConfiguration (string& file_path) {
 			cloudRGB->clear();
 			combinePointClouds(seperated_clouds, cloudRGB);
 			vis_type = color;
+			delay.printout();
+			
 		}
 		else if (0 == v.second.get<string>("type").compare("region-growth")){
 			segment_param_t param;
@@ -226,6 +274,8 @@ processConfiguration (string& file_path) {
 			combinePointClouds(seperated_clouds, cloudRGB);
 			vis_type = color;
 		}
+
+		
 		
     }
 
@@ -240,16 +290,22 @@ processConfiguration (string& file_path) {
         	    	pc_holder.pXYZRGB = cloudRGB;
         	    	viewer = simpleVis(pc_holder);
         }
+
         else {
     		cout<<"Unsupported output type: "<<pt.get<string>("output.type")<<endl;
     		cout<<"We only support simple|extracted-planes|segmentations for the moment"<<endl;
         }
 
     		/*Main looper*/
+
+		
+		
+
       	while (!viewer->wasStopped ())
         {
       	    /*Render it*/
             viewer->spinOnce (100);
+			
 
             /*Sleep for 100ms*/
             boost::this_thread::sleep (boost::posix_time::microseconds (100000));
@@ -269,6 +325,8 @@ processConfiguration (string& file_path) {
         }
     }
 
+	    
+
 
 
 
@@ -284,15 +342,11 @@ int main (int argc, char** argv)
 	int index = -1;
 
 	/*Use config file*/
-	clock_t start,finish;
-	double totaltime;
-	start = clock();
+	
 	if ((index=pcl::console::find_argument (argc, argv, "-cfg")) > 0){
 		string file_path(argv[index+1]);
 		processConfiguration(file_path);
-		finish = clock();
-		totaltime = (double)(finish-start)/CLOCKS_PER_SEC;
-		cout<< "\ntime delay : " << totaltime <<endl;
+		
 	}
 
 	else {

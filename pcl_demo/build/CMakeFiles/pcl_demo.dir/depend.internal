@@ -8,7 +8,7 @@ CMakeFiles/pcl_demo.dir/src/pcl_demo.cpp.o
  ../inc/pcl_utils_segment.h
  ../inc/pcl_utils_ts.h
  ../inc/pcl_utils_viewer.h
- /Users/lyan/Documents/project/pcl_demo/src/pcl_demo.cpp
+ /Users/lyan/Documents/GitHub/PCL_Demo/pcl_demo/src/pcl_demo.cpp
  /usr/local/Cellar/vtk/8.0.1_1/include/vtk-8.0/vtkABI.h
  /usr/local/Cellar/vtk/8.0.1_1/include/vtk-8.0/vtkAOSDataArrayTemplate.h
  /usr/local/Cellar/vtk/8.0.1_1/include/vtk-8.0/vtkAbstractArray.h
